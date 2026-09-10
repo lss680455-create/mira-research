@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-label="mira-research">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a1120"/>
+      <stop offset="0.55" stop-color="#0f1b30"/>
+      <stop offset="1" stop-color="#152742"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4cc9f0"/>
+      <stop offset="1" stop-color="#7b61ff"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1280" height="320" fill="url(#bg)"/>
+
+  <path d="M0 280 H1280" stroke="#22354f" stroke-width="1" fill="none" opacity="0.6"/>
+  <path d="M0 40 H1280" stroke="#22354f" stroke-width="1" fill="none" opacity="0.35"/>
+  <path d="M64 64 V256" stroke="#1d2f4a" stroke-width="1" fill="none" opacity="0.7"/>
+  <path d="M80 96 h56" stroke="url(#accent)" stroke-width="3" fill="none"/>
+
+  <circle cx="1128" cy="158" r="52" stroke="#2b3f5c" stroke-width="1.5" fill="none" opacity="0.9"/>
+  <circle cx="1128" cy="158" r="92" stroke="#25364f" stroke-width="1.2" fill="none" opacity="0.7"/>
+  <circle cx="1128" cy="158" r="132" stroke="#1f2e44" stroke-width="1" fill="none" opacity="0.5"/>
+  <circle cx="1128" cy="158" r="10" fill="#4cc9f0" opacity="0.9"/>
+  <circle cx="1212" cy="96" r="5" fill="#7b61ff" opacity="0.85"/>
+  <circle cx="1044" cy="228" r="4" fill="#4cc9f0" opacity="0.65"/>
+  <path d="M1128 26 V78" stroke="#2b3f5c" stroke-width="1" fill="none" opacity="0.6"/>
+  <path d="M1128 238 V290" stroke="#2b3f5c" stroke-width="1" fill="none" opacity="0.6"/>
+  <path d="M996 158 H1048" stroke="#2b3f5c" stroke-width="1" fill="none" opacity="0.6"/>
+
+  <text x="64" y="122" font-family="'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif" font-size="17" letter-spacing="3" fill="#7d8fa9">EX. / EVIDENCE-TRACKED RESEARCH</text>
+  <text x="64" y="182" font-family="'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif" font-size="58" font-weight="700" fill="#eef4fc">mira-research</text>
+  <text x="64" y="222" font-family="'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif" font-size="20" fill="#c9d6e8">Model output is not evidence by itself.</text>
+  <text x="64" y="250" font-family="'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif" font-size="15" fill="#8fa3bf">证据追踪 · 可刷新 · 可证伪的投研工作流 —— 契约驱动，离线可跑</text>
+
+  <rect x="64" y="268" width="152" height="30" rx="15" fill="#10233c" stroke="#2b4467" stroke-width="1"/>
+  <text x="140" y="288" text-anchor="middle" font-family="'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#9fd8f5">JSON Schema 契约</text>
+
+  <rect x="228" y="268" width="120" height="30" rx="15" fill="#10233c" stroke="#2b4467" stroke-width="1"/>
+  <text x="288" y="288" text-anchor="middle" font-family="'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#9fd8f5">零依赖校验器</text>
+
+  <rect x="360" y="268" width="132" height="30" rx="15" fill="#10233c" stroke="#2b4467" stroke-width="1"/>
+  <text x="426" y="288" text-anchor="middle" font-family="'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#9fd8f5">4 个 CLI 子命令</text>
+
+  <rect x="504" y="268" width="170" height="30" rx="15" fill="#10233c" stroke="#2b4467" stroke-width="1"/>
+  <text x="589" y="288" text-anchor="middle" font-family="'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#9fd8f5">离线可跑 · 零 API key</text>
+</svg>
