@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mira-research"
+version = "1.0.0"
+description = "证据追踪型投研工作区：论点卡片、可刷新、可证伪的多源研究工作流"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "Apache-2.0" }
+authors = [{ name = "EX." }]
+keywords = ["investment-research", "evidence", "json-schema", "research-workflow"]
+dependencies = ["PyYAML>=5.4"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+  "Topic :: Office/Business :: Financial :: Investment",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.urls]
+Repository = "https://github.com/lss680455-create/mira-research"
+
+[project.scripts]
+mira = "mira.cli:entry"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"
