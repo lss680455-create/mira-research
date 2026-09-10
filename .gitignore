@@ -1,0 +1,30 @@
+# 环境与密钥
+.env
+*.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# 测试与缓存
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Mira 运行产物：默认只在运行目录生成，不入库；样例包中的产物由 examples/ 显式管理
+/refresh-report.md
+/refresh-report.json
+cache/
