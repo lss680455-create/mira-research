@@ -1,0 +1,153 @@
+{
+  "schema_version": "1.0",
+  "thesis_id": "aapl-2026-04",
+  "title": "AAPL：高质量平台资产的中长线持有逻辑（2026-04 案例）",
+  "as_of": "2026-09-10",
+  "stale_after": "2026-07-13",
+  "refresh_status": "expired",
+  "declared_status": "fresh",
+  "status_source": "时间边界+到期未核对",
+  "days_to_stale": -59,
+  "due_soon_days": 30,
+  "triggers": [
+    {
+      "trigger_id": "T1-time",
+      "kind": "time",
+      "condition": "到达时间边界 2026-07-13（与下一份财报先到者为准）",
+      "status": "pending",
+      "next_check": "2026-07-13",
+      "last_checked": "2026-04-14",
+      "action_if_fired": "重跑研究循环：刷新估值锚与价格语境，更新论点卡与证据日志",
+      "overdue": true
+    },
+    {
+      "trigger_id": "T2-earnings",
+      "kind": "filing",
+      "condition": "Apple 发布下一份季度财报或正式指引更新",
+      "status": "pending",
+      "next_check": "2026-10-30",
+      "last_checked": "2026-04-14",
+      "action_if_fired": "复核季度数据对 core_claim 的支撑与证伪路径",
+      "overdue": false
+    },
+    {
+      "trigger_id": "T3-price",
+      "kind": "price",
+      "condition": "AAPL 有效跌破 245 美元附近关键支撑并持续失守",
+      "status": "pending",
+      "next_check": "2026-07-31",
+      "last_checked": "2026-04-14",
+      "action_if_fired": "触发技术语境复核；若伴随基本面证据则降级完整论点",
+      "overdue": true
+    },
+    {
+      "trigger_id": "T4-policy",
+      "kind": "event",
+      "condition": "关税、监管或供应链披露实质影响毛利率",
+      "status": "pending",
+      "next_check": "2026-07-31",
+      "last_checked": "2026-04-14",
+      "action_if_fired": "评估毛利率耐久性影响并更新期望图谱",
+      "overdue": true
+    }
+  ],
+  "must_refresh_if": [
+    "Apple 发布下一份财报或正式指引更新",
+    "核心产品 / AI 节奏出现实质性变化",
+    "关税、供应链或监管披露实质影响毛利率",
+    "当前价格与估值语境与 2026-04 案例出现重大偏离"
+  ],
+  "next_actions": [
+    "时间边界已过（stale_after=2026-07-13）：先用最新数据复核再引用本结论",
+    "补做到期核对 T1-time（next_check=2026-07-13）",
+    "补做到期核对 T3-price（next_check=2026-07-31）",
+    "补做到期核对 T4-policy（next_check=2026-07-31）",
+    "更新已过期证据行：derived_aapl_apr2026_thesis（Integrated thesis as of 2026-04-14: qual…）",
+    "按计划核对 T2-earnings（next_check=2026-10-30）"
+  ],
+  "evidence_summary": {
+    "total": 9,
+    "by_category": {
+      "inference": 2,
+      "market_pricing": 2,
+      "reported_fact": 2,
+      "verified_fact": 2,
+      "weak_signal": 1
+    },
+    "by_treatment": {
+      "attribute": 1,
+      "monitor": 2,
+      "source_gap": 2,
+      "use_normally": 4
+    },
+    "by_authority": {
+      "L1": 4,
+      "L4": 3,
+      "L5": 1,
+      "L6": 1
+    },
+    "by_freshness": {
+      "acceptable_for_period": 3,
+      "current": 4,
+      "preliminary": 1,
+      "stale": 1
+    },
+    "stale_rows": [
+      {
+        "source_id": "derived_aapl_apr2026_thesis",
+        "claim_area": "integrated_thesis",
+        "claim_type": "interpretation",
+        "claim_text": "Integrated thesis as of 2026-04-14: quality platform with a durable franchise, but limited valuation margin of safety at prevailing prices; actionability blocked pending refreshed market data and valuation work.",
+        "source_speaker": "Mira synthesis (derived)",
+        "verification_status": "modeled",
+        "authority_level": "L6",
+        "source_date": "2026-04-14",
+        "as_of_date": "2026-04-14",
+        "url_or_path": "examples/aapl-2026-04/investment-memo.md",
+        "used_by_agent": "thesis-builder",
+        "used_by_skill": "thesis-builder",
+        "confidence": "medium",
+        "upstream_sources": "sec_apple_10k_2025; apple_q1_2026_results; financecharts_aapl_summary; barrons_aapl_technical_apr2026",
+        "notes": "合成结论；上游来源已列出；行动性受市场数据过期阻断",
+        "evidence_category": "inference",
+        "freshness_status": "stale",
+        "conflict_status": "none",
+        "treatment": "source_gap",
+        "readiness_impact": "blocks_actionability",
+        "source_language": "en",
+        "translation_basis": "not_translated"
+      }
+    ],
+    "blocking_rows": [
+      {
+        "source_id": "derived_aapl_apr2026_thesis",
+        "claim_area": "integrated_thesis",
+        "claim_type": "interpretation",
+        "claim_text": "Integrated thesis as of 2026-04-14: quality platform with a durable franchise, but limited valuation margin of safety at prevailing prices; actionability blocked pending refreshed market data and valuation work.",
+        "source_speaker": "Mira synthesis (derived)",
+        "verification_status": "modeled",
+        "authority_level": "L6",
+        "source_date": "2026-04-14",
+        "as_of_date": "2026-04-14",
+        "url_or_path": "examples/aapl-2026-04/investment-memo.md",
+        "used_by_agent": "thesis-builder",
+        "used_by_skill": "thesis-builder",
+        "confidence": "medium",
+        "upstream_sources": "sec_apple_10k_2025; apple_q1_2026_results; financecharts_aapl_summary; barrons_aapl_technical_apr2026",
+        "notes": "合成结论；上游来源已列出；行动性受市场数据过期阻断",
+        "evidence_category": "inference",
+        "freshness_status": "stale",
+        "conflict_status": "none",
+        "treatment": "source_gap",
+        "readiness_impact": "blocks_actionability",
+        "source_language": "en",
+        "translation_basis": "not_translated"
+      }
+    ],
+    "version": "v1.2"
+  },
+  "stale_evidence_rows": [
+    "derived_aapl_apr2026_thesis（Integrated thesis as of 2026-04-14: qual…）"
+  ],
+  "notes": "refresh.yaml 是计划快照：refresh_status 为计划时点（2026-04-14）的状态；实际状态一律以 `mira refresh` 计算为准。"
+}

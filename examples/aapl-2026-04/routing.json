@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "interaction_mode": "routed_research",
+  "primary_intent": "对单一美股标的（AAPL）做首轮论点系统研究：建立论点卡、证据日志与刷新计划",
+  "task_mode": "first_pass_research",
+  "research_object": "single_equity (AAPL)",
+  "market_scope": "US equity",
+  "time_boundary": "6-12 个月（基本面视角）",
+  "depth_mode": "standard",
+  "decision_pressure": "none",
+  "framing_risk": "none",
+  "disconfirmation_required": "no",
+  "quant_dependency": "high",
+  "calculation_gate": "required",
+  "primary_workflow": "workflows/research-loop.md",
+  "expected_output_package": "investment-memo.md + thesis-card.yaml + evidence-log.csv + refresh.yaml + monitoring.json",
+  "readiness_level": "working_view",
+  "routing_basis": "案例起点是主动的首轮研究（非事件驱动、非持仓防守），按 standard 深度跑完整研究循环；涉及估值语境判断，量化门禁设为 required。",
+  "routing_mismatch_risk": "若用户实际意图是快速回答或持仓管理，本包深度偏高，应回落到 quick_map 或 decision_support 路由。",
+  "followup_prompt_mode": "standard",
+  "followup_questions": [
+    "Q2 主线变量（rung: 核心）——三个候选驱动（Services 韧性 / 产品周期 / 估值倍数）里，哪一个作为本论点的轴？",
+    "Q5 证伪条件（rung: 核心）——哪些可观测信号（Services 增速、毛利率、产品排期、监管披露）出现时你认输？",
+    "Q6 产出取向（rung: 常规）——本次优先看增长、风险还是估值？是否需要构建 base/bull/bear 估值模型？"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "manifest_version": "mira_research_package_v1",
+  "case_id": "aapl-2026-04",
+  "research_object": "AAPL",
+  "market_scope": "US equity",
+  "research_cutoff_date": "2026-04-14",
+  "package_type": "research_package",
+  "readiness_level": "working_view",
+  "readiness_basis": "论点已绑定一手披露与季度业绩；但行情与估值快照已过时，且本案例未构建估值模型，故行动性受阻。",
+  "research_action": "watch_only",
+  "action_boundary": "research_action_only_not_trade_instruction",
+  "blocking_gaps": [
+    "当前价格与估值语境需刷新后才能用于实盘判断",
+    "本案例未构建 base/bull/bear 估值模型",
+    "下一份季报与指引需核对后才能复用本结论"
+  ],
+  "primary_workflow": "workflows/research-loop.md",
+  "thesis_card": "thesis-card.yaml",
+  "hero_artifacts": ["investment-memo.md", "refresh-report.md"],
+  "support_artifacts": [
+    "evidence-log.csv",
+    "thesis-card.yaml",
+    "routing.json",
+    "refresh.yaml",
+    "monitoring.json",
+    "report.md"
+  ],
+  "source_scope": "SEC 10-K、公司季度业绩稿、公开行情数据与少量公开事件风险来源（截至 research_cutoff_date）。",
+  "evidence_log_status": "canonical_v1_2",
+  "stale_after": "2026-07-13",
+  "must_refresh_if": [
+    "Apple 发布下一份财报或正式指引更新",
+    "核心产品 / AI 节奏出现实质性变化",
+    "关税、供应链或监管披露实质影响毛利率",
+    "当前价格与估值语境与 2026-04 案例出现重大偏离"
+  ],
+  "notes": "历史案例包，用于演示 Mira 工作流，不构成投资建议。state=stale：复用前必须先跑 mira refresh。"
+}

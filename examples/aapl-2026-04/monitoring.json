@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "queue_id": "q-aapl-2026-04",
+  "created_at": "2026-05-29",
+  "items": [
+    {
+      "thesis_id": "aapl-2026-04",
+      "variable": "Services 收入与毛利率",
+      "watch_source": "季度财报 / 10-Q 分部披露",
+      "cadence": "quarterly",
+      "escalation_condition": "Services 增速或毛利率连续两个季度弱于指引区间",
+      "status": "open",
+      "last_checked": "2026-04-14",
+      "next_check": "2026-10-30"
+    },
+    {
+      "thesis_id": "aapl-2026-04",
+      "variable": "iPhone 需求与产品排期",
+      "watch_source": "财报电话会、供应链报道与产品发布",
+      "cadence": "quarterly",
+      "escalation_condition": "出现可信的周期走弱证据，或多季度需求下滑",
+      "status": "open",
+      "last_checked": "2026-04-14",
+      "next_check": "2026-10-30"
+    },
+    {
+      "thesis_id": "aapl-2026-04",
+      "variable": "关税 / 监管对毛利率的影响",
+      "watch_source": "公司披露、监管公告与政策新闻",
+      "cadence": "event_driven",
+      "escalation_condition": "披露显示毛利率耐久性受到实质影响",
+      "status": "open",
+      "last_checked": "2026-04-14",
+      "next_check": "2026-07-31"
+    },
+    {
+      "thesis_id": "aapl-2026-04",
+      "variable": "股价关键位与估值语境",
+      "watch_source": "行情数据（245 支撑 / 285 压力）",
+      "cadence": "weekly",
+      "escalation_condition": "有效跌破 245 并持续失守，或估值语境出现重大偏离",
+      "status": "open",
+      "last_checked": "2026-04-14",
+      "next_check": "2026-05-29"
+    }
+  ]
+}

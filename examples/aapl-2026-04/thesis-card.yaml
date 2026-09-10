@@ -1,0 +1,58 @@
+schema_version: "1.0"
+thesis_id: aapl-2026-04
+title: "AAPL：高质量平台资产的中长线持有逻辑（2026-04 案例）"
+research_object: "AAPL（单一美股标的）"
+market_scope: "US equity"
+horizon: fundamental
+state: stale
+confidence: medium
+core_claim: >-
+  Apple 仍是高质量平台型资产：品牌、软硬件生态与 20 亿级活跃设备构成难复制的护城河，
+  现金流与资本回报具备长期韧性；但 2026-04 时点的价格已基本反映其质量，
+  属于「值得跟踪持有的优质平台」，而非「明显错杀的弹性机会」。
+variant_view: >-
+  变体观点偏弱：市场普遍认可 Apple 的质量，真正的分歧在于当前估值是否已过度计入
+  产品周期疲劳、监管与 AI 执行风险。本案例未证明存在强估值错位。
+key_variables:
+  - variable: "Services 增长与利润率韧性"
+    consensus_proxy: "市场共识预期 Services 继续支撑增长与利润率"
+    mira_view: "Services 是耐久性支柱，需持续监控监管与结构压力"
+    price_in_status: partly_price_in
+    next_check: "下一份季报的 Services 收入与毛利率披露"
+  - variable: "iPhone 产品周期延续性"
+    consensus_proxy: "市场围绕 iPhone 周期、AI 路线图与新品节奏反复定价"
+    mira_view: "周期风险真实存在，但本论点不依赖单一产品催化"
+    price_in_status: partly_price_in
+    next_check: "下一季度财报电话会与可靠的产品排期证据"
+  - variable: "估值倍数与风险溢价"
+    consensus_proxy: "大市值公司估值已计入质量与资本回报韧性"
+    mira_view: "上行需要盈利上修或风险溢价压缩，仅重申质量不够"
+    price_in_status: mostly_price_in
+    next_check: "下一份财报后的前瞻倍数与盈利修正方向"
+key_assumptions:
+  - "Services 与生态留存继续支撑溢价盈利能力"
+  - "硬件创新周期不会恶化到令估值倍数显著压缩"
+  - "关税、监管与供应链变化相对现金流耐久性可控"
+  - "AI 与新品叙事是可选上行，而非本论点的必要证明"
+evidence_ids:
+  - sec_apple_10k_2025
+  - apple_q1_2026_results
+  - financecharts_aapl_summary
+  - stockanalysis_aapl_history
+  - barrons_aapl_technical_apr2026
+  - macrumors_foldable_delay_2026
+  - derived_aapl_apr2026_thesis
+disconfirming_evidence:
+  - "连续多个季度 iPhone 走弱，且 Services / 利润率无法对冲"
+  - "监管或关税压力实质性降低毛利率耐久性"
+  - "AI / 新品周期未能支撑生态参与度，而估值仍隐含增长韧性"
+  - "现金流质量或资本回报能力出现趋势性恶化"
+refresh:
+  stale_after: "2026-07-13"
+  must_refresh_if:
+    - "Apple 发布下一份财报或正式指引更新"
+    - "核心产品 / AI 节奏出现实质性变化"
+    - "关税、供应链或监管披露实质影响毛利率"
+    - "当前价格与估值语境与 2026-04 案例出现重大偏离"
+last_reviewed_at: "2026-05-29"
+notes: "历史案例；state=stale 表示复用前必须先刷新（mira refresh）。"

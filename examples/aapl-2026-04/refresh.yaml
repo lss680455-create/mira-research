@@ -1,0 +1,40 @@
+schema_version: "1.0"
+thesis_id: aapl-2026-04
+as_of: "2026-04-14"
+stale_after: "2026-07-13"
+refresh_status: fresh
+triggers:
+  - trigger_id: T1-time
+    kind: time
+    condition: "到达时间边界 2026-07-13（与下一份财报先到者为准）"
+    status: pending
+    last_checked: "2026-04-14"
+    next_check: "2026-07-13"
+    action_if_fired: "重跑研究循环：刷新估值锚与价格语境，更新论点卡与证据日志"
+  - trigger_id: T2-earnings
+    kind: filing
+    condition: "Apple 发布下一份季度财报或正式指引更新"
+    status: pending
+    last_checked: "2026-04-14"
+    next_check: "2026-10-30"
+    action_if_fired: "复核季度数据对 core_claim 的支撑与证伪路径"
+  - trigger_id: T3-price
+    kind: price
+    condition: "AAPL 有效跌破 245 美元附近关键支撑并持续失守"
+    status: pending
+    last_checked: "2026-04-14"
+    next_check: "2026-07-31"
+    action_if_fired: "触发技术语境复核；若伴随基本面证据则降级完整论点"
+  - trigger_id: T4-policy
+    kind: event
+    condition: "关税、监管或供应链披露实质影响毛利率"
+    status: pending
+    last_checked: "2026-04-14"
+    next_check: "2026-07-31"
+    action_if_fired: "评估毛利率耐久性影响并更新期望图谱"
+must_refresh_if:
+  - "Apple 发布下一份财报或正式指引更新"
+  - "核心产品 / AI 节奏出现实质性变化"
+  - "关税、供应链或监管披露实质影响毛利率"
+  - "当前价格与估值语境与 2026-04 案例出现重大偏离"
+notes: "refresh.yaml 是计划快照：refresh_status 为计划时点（2026-04-14）的状态；实际状态一律以 `mira refresh` 计算为准。"
