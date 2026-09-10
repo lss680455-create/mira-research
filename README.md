@@ -54,7 +54,7 @@ bash scripts/demo.sh
 
 `demo.sh` 会把三个产物写进样例目录：`refresh-report.md` / `refresh-report.json` / `report.md`。
 
-不安装也可以直接运行（在仓库根目录）：`python -m mira validate --all`。
+不安装也可以直接跑（仓库使用 `src` 布局，在仓库根目录加 `PYTHONPATH` 即可）：`PYTHONPATH=src python -m mira validate --all`。
 
 ---
 

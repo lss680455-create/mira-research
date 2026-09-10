@@ -54,7 +54,7 @@ bash scripts/demo.sh
 
 `demo.sh` writes three artifacts into the example case directory: `refresh-report.md` / `refresh-report.json` / `report.md`.
 
-Without installing anything you can also run it directly from the repo root: `python -m mira validate --all`.
+Without installing anything you can also run it directly from the repo root (the repo uses a `src` layout, so add `PYTHONPATH`): `PYTHONPATH=src python -m mira validate --all`.
 
 ---
 
