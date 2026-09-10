@@ -34,7 +34,7 @@ Contracts, the verifier and the refresh engine ship as **executable artifacts** 
 - 📋 **Research-package readout** — one command summarises the manifest, thesis card, evidence stats and refresh status into a report. → [`src/mira/report.py`](src/mira/report.py)
 - 🏗️ **`mira init` is born green** — the scaffolded minimal case passes contract validation as-is; no "fix it until it runs" step. → [`src/mira/scaffold.py`](src/mira/scaffold.py)
 - 🧪 **69 offline tests** — no network, no API keys; one `pytest` command goes fully green, and the generated refresh report itself passes its own contract. → [`tests/`](tests)
-- 📦 **Slim repository** — rebuilt from an upstream library of 635 files / ~6.4 MB into a portable toolchain under 1 MB plus one end-to-end example. → [`examples/aapl-2026-04/`](examples/aapl-2026-04)
+- 📦 **Slim repository** — a 635-file / ~6.4 MB case library trimmed down to a portable toolchain under 1 MB plus one end-to-end example. → [`examples/aapl-2026-04/`](examples/aapl-2026-04)
 
 ---
 
@@ -104,6 +104,19 @@ Every command has `--help`; defaults can be overridden with `MIRA_*` environment
 
 > Full write-up in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) (layers / contract inventory / validation pipeline / data flow / extension points).
 
+**The thesis → evidence → refresh → monitoring loop**:
+
+```mermaid
+flowchart LR
+    A["Thesis card<br/>thesis-card.yaml"] --> B["Evidence log<br/>evidence-log.csv"]
+    B --> C{"mira refresh<br/>time boundary + triggers"}
+    C -- "fresh" --> D["Reuse the package"]
+    C -- "due_soon" --> E["Move into monitoring<br/>monitoring.json"]
+    C -- "expired" --> F["Refresh evidence, write back"]
+    F --> B
+    C --> G["mira report<br/>readout report"]
+```
+
 ```text
 mira-research/
 ├── schemas/            contract layer: 7 contract files (incl. the vocabulary vocab.json)
@@ -127,7 +140,7 @@ For the workflow and glossary (four-loop process, standard command sequences, st
 
 ## Showcase
 
-[`examples/aapl-2026-04/`](examples/aapl-2026-04) is a complete case package (rebuilt from the upstream case): an AAPL thesis → 9 evidence rows → 4 refresh triggers → the full set of refresh and readout artifacts.
+[`examples/aapl-2026-04/`](examples/aapl-2026-04) is a complete case package (the example is rewritten from the case library): an AAPL thesis → 9 evidence rows → 4 refresh triggers → the full set of refresh and readout artifacts.
 
 - Conclusion plane: [investment memo](examples/aapl-2026-04/investment-memo.md) · [thesis card](examples/aapl-2026-04/thesis-card.yaml) · [evidence log (22 columns)](examples/aapl-2026-04/evidence-log.csv)
 - Generated artifacts: [refresh report](examples/aapl-2026-04/refresh-report.md) · [research-package readout](examples/aapl-2026-04/report.md)
@@ -158,4 +171,4 @@ This project is a **methodology demonstration for research process and evidence 
 
 ## License
 
-[Apache-2.0](LICENSE) · Rebuilt from the open-source project [byteseek/Mira](https://github.com/byteseek/Mira) (Apache-2.0; the contract semantics and controlled vocabulary follow its methodology); the engineering implementation and documentation are rewritten for this repository.
+[Apache-2.0](LICENSE) · Turning evidence discipline into machine-checkable rules. This project is a refactored and enhanced edition based on the open-source project [byteseek/Mira](https://github.com/byteseek/Mira) (Apache-2.0).

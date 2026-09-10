@@ -34,7 +34,7 @@
 - 📋 **研究包读出** — 一条命令把包清单 / 论点卡 / 证据统计 / 刷新状态汇总成报告。 → [`src/mira/report.py`](src/mira/report.py)
 - 🏗️ **`mira init` 出生即绿** — 脚手架生成的最小 case 直接通过契约校验，不用先"修到能跑"。 → [`src/mira/scaffold.py`](src/mira/scaffold.py)
 - 🧪 **69 个离线测试** — 不需要网络、不需要 API key，`pytest` 一条命令全绿；刷新报告作为生成物自身也通过契约校验。 → [`tests/`](tests)
-- 📦 **精简仓库** — 由上游 635 文件 / 约 6.4 MB 的案例库重构为不足 1 MB 的可移植工具链 + 1 个端到端样例。 → [`examples/aapl-2026-04/`](examples/aapl-2026-04)
+- 📦 **精简仓库** — 剥离冗余案例库：635 文件 / 约 6.4 MB → 不足 1 MB 的可移植工具链 + 1 个端到端样例。 → [`examples/aapl-2026-04/`](examples/aapl-2026-04)
 
 ---
 
@@ -104,6 +104,19 @@ pip install -e ".[dev]" && pytest tests/ -q
 
 > 完整说明见 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)（分层图 / 契约清单 / 校验管线 / 数据流 / 扩展点）。
 
+**论点 → 证据 → 刷新 → 监控的闭环**：
+
+```mermaid
+flowchart LR
+    A["论点卡<br/>thesis-card.yaml"] --> B["证据日志<br/>evidence-log.csv"]
+    B --> C{"mira refresh<br/>时间边界 + 触发条件"}
+    C -- "fresh" --> D["复用研究包"]
+    C -- "due_soon" --> E["进入监控<br/>monitoring.json"]
+    C -- "expired" --> F["刷新证据后回写"]
+    F --> B
+    C --> G["mira report<br/>读出报告"]
+```
+
 ```text
 mira-research/
 ├── schemas/            契约层：7 个契约文件（含统一词表 vocab.json）
@@ -127,7 +140,7 @@ mira-research/
 
 ## 成果展示
 
-[`examples/aapl-2026-04/`](examples/aapl-2026-04) 是一个完整案例包（由上游案例裁剪重构）：AAPL 论点 → 9 条证据 → 4 个触发条件 → 刷新报告与读出报告全套产物。
+[`examples/aapl-2026-04/`](examples/aapl-2026-04) 是一个完整案例包（样例由案例库重写而来）：AAPL 论点 → 9 条证据 → 4 个触发条件 → 刷新报告与读出报告全套产物。
 
 - 结论面：[投资备忘](examples/aapl-2026-04/investment-memo.md) · [论点卡](examples/aapl-2026-04/thesis-card.yaml) · [证据日志（22 列）](examples/aapl-2026-04/evidence-log.csv)
 - 生成物：[刷新报告](examples/aapl-2026-04/refresh-report.md) · [研究包读出](examples/aapl-2026-04/report.md)
@@ -158,4 +171,4 @@ mira-research/
 
 ## 许可
 
-[Apache-2.0](LICENSE) · 重构自开源项目 [byteseek/Mira](https://github.com/byteseek/Mira)（Apache-2.0；契约语义与受控词表沿用其方法论），工程实现与文档为本仓库重写。
+[Apache-2.0](LICENSE) · 让证据纪律变成机器可校验的规则。本项目基于开源项目 [byteseek/Mira](https://github.com/byteseek/Mira)（Apache-2.0）重构与增强。
