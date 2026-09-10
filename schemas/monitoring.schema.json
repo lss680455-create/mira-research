@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "monitoring.schema.json",
+  "title": "Mira Monitoring Queue",
+  "description": "监控队列契约：论点进入『监控』循环后的待办清单。每一行回答：盯哪个变量、从哪个来源看、多久看一次、出现什么信号就升级回研究循环。monitoring 只处理增量证据，不重写整份研究。",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string", "minLength": 1 },
+    "queue_id": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string", "format": "date" },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "thesis_id": { "type": "string", "minLength": 1 },
+          "variable": { "type": "string", "minLength": 1 },
+          "watch_source": { "type": "string", "minLength": 1 },
+          "cadence": { "$ref": "vocab.json#/cadence" },
+          "escalation_condition": { "type": "string", "minLength": 1 },
+          "status": { "$ref": "vocab.json#/monitoring_status" },
+          "last_checked": { "type": "string", "format": "date" },
+          "next_check": { "type": "string", "format": "date" }
+        },
+        "required": ["thesis_id", "variable", "watch_source", "cadence", "escalation_condition", "status"],
+        "allOf": [
+          {
+            "$comment": "escalated 项必须留痕 last_checked，保证升级动作可复核。",
+            "if": { "properties": { "status": { "const": "escalated" } }, "required": ["status"] },
+            "then": { "required": ["last_checked"] }
+          },
+          {
+            "$comment": "closed 项必须留痕 last_checked，说明何时关闭。",
+            "if": { "properties": { "status": { "const": "closed" } }, "required": ["status"] },
+            "then": { "required": ["last_checked"] }
+          }
+        ]
+      }
+    }
+  },
+  "required": ["schema_version", "queue_id", "created_at", "items"]
+}

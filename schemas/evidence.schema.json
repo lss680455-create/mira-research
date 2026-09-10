@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "evidence.schema.json",
+  "title": "Mira Evidence Record",
+  "description": "单条证据记录契约。canonical 载体是 case 级 evidence-log.csv（列序见 docs/evidence-log.md）；本 schema 定义同一记录的 JSON 形态，供流水线与跨语言工具消费。核心原则：Model output is not evidence by itself —— 每条被结论引用的信息都要能回答『这是什么、来源层级、可用姿态、能否支撑 durable conclusion』。",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string", "minLength": 1 },
+    "evidence_id": { "type": "string", "minLength": 1 },
+    "claim_area": { "type": "string", "minLength": 1 },
+    "claim_type": { "$ref": "vocab.json#/claim_type" },
+    "claim_text": { "type": "string", "minLength": 1 },
+    "source": {
+      "type": "object",
+      "properties": {
+        "speaker": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "url_or_path": { "type": "string", "minLength": 1 },
+        "source_date": { "type": "string", "format": "date" },
+        "as_of_date": { "type": "string", "format": "date" },
+        "authority_level": { "$ref": "vocab.json#/authority_level" },
+        "verification_status": { "$ref": "vocab.json#/verification_status" },
+        "source_language": { "$ref": "vocab.json#/source_language" },
+        "translation_basis": { "$ref": "vocab.json#/translation_basis" }
+      },
+      "required": [
+        "speaker",
+        "name",
+        "url_or_path",
+        "source_date",
+        "as_of_date",
+        "authority_level",
+        "verification_status",
+        "source_language",
+        "translation_basis"
+      ]
+    },
+    "confidence": { "$ref": "vocab.json#/confidence" },
+    "upstream_sources": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "evidence_category": { "$ref": "vocab.json#/evidence_category" },
+    "freshness_status": { "$ref": "vocab.json#/freshness_status" },
+    "conflict_status": { "$ref": "vocab.json#/conflict_status" },
+    "treatment": { "$ref": "vocab.json#/treatment" },
+    "readiness_impact": { "$ref": "vocab.json#/readiness_impact" },
+    "used_by_agent": { "type": "string", "minLength": 1 },
+    "used_by_skill": { "type": "string", "minLength": 1 },
+    "notes": { "type": "string" }
+  },
+  "required": [
+    "schema_version",
+    "evidence_id",
+    "claim_area",
+    "claim_type",
+    "claim_text",
+    "source",
+    "confidence",
+    "evidence_category",
+    "freshness_status",
+    "conflict_status",
+    "treatment",
+    "readiness_impact"
+  ],
+  "allOf": [
+    {
+      "$comment": "可复算纪律：derived_calculation 必须列出上游来源 id，不允许只有结果没有来源链。",
+      "if": { "properties": { "claim_type": { "const": "derived_calculation" } }, "required": ["claim_type"] },
+      "then": { "properties": { "upstream_sources": { "minItems": 1 } } }
+    },
+    {
+      "$comment": "L6（派生/自算）层级的记录同样必须有上游来源。",
+      "if": { "properties": { "source": { "properties": { "authority_level": { "const": "L6" } }, "required": ["authority_level"] } }, "required": ["source"] },
+      "then": { "properties": { "upstream_sources": { "minItems": 1 } } }
+    },
+    {
+      "$comment": "弱信号纪律：未验证传闻不得标 confidence=high。",
+      "if": { "properties": { "claim_type": { "const": "rumor_signal" } }, "required": ["claim_type"] },
+      "then": { "properties": { "confidence": { "enum": ["medium", "low"] } } }
+    },
+    {
+      "$comment": "姿态一致性：verified_fact 不允许来自 unverified 的核验状态。",
+      "if": { "properties": { "evidence_category": { "const": "verified_fact" } }, "required": ["evidence_category"] },
+      "then": { "properties": { "source": { "properties": { "verification_status": { "enum": ["verified", "disclosed"] } } } } }
+    },
+    {
+      "$comment": "结论支撑纪律：unknown 姿态的证据不得声称支撑 durable conclusion。",
+      "if": { "properties": { "evidence_category": { "const": "unknown" } }, "required": ["evidence_category"] },
+      "then": { "properties": { "readiness_impact": { "enum": ["monitoring_only", "not_material", "blocks_actionability", "blocks_publication"] } } }
+    }
+  ]
+}

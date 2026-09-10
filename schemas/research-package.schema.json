@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "research-package.schema.json",
+  "title": "Mira Research Package Manifest",
+  "description": "研究包清单契约：一个 case 目录的入口文件。声明产物清单、就绪度、时间边界与刷新条件。mira validate 用它与目录实际文件对照（hero/support 产物必须存在），mira report 用它渲染读출。",
+  "type": "object",
+  "properties": {
+    "manifest_version": { "const": "mira_research_package_v1" },
+    "case_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,63}$" },
+    "research_object": { "type": "string", "minLength": 1 },
+    "market_scope": { "type": "string", "minLength": 1 },
+    "research_cutoff_date": { "type": "string", "format": "date" },
+    "package_type": { "$ref": "vocab.json#/package_type" },
+    "readiness_level": { "$ref": "vocab.json#/readiness_level" },
+    "readiness_basis": { "type": "string", "minLength": 1 },
+    "research_action": { "$ref": "vocab.json#/research_action" },
+    "action_boundary": { "const": "research_action_only_not_trade_instruction" },
+    "blocking_gaps": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "primary_workflow": { "type": "string", "minLength": 1 },
+    "thesis_card": { "type": "string", "minLength": 1 },
+    "hero_artifacts": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "support_artifacts": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "source_scope": { "type": "string", "minLength": 1 },
+    "evidence_log_status": { "$ref": "vocab.json#/evidence_log_status" },
+    "stale_after": { "type": "string", "format": "date" },
+    "must_refresh_if": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "notes": { "type": "string" }
+  },
+  "required": [
+    "manifest_version",
+    "case_id",
+    "research_object",
+    "market_scope",
+    "research_cutoff_date",
+    "package_type",
+    "readiness_level",
+    "readiness_basis",
+    "research_action",
+    "action_boundary",
+    "primary_workflow",
+    "hero_artifacts",
+    "evidence_log_status",
+    "stale_after",
+    "must_refresh_if"
+  ],
+  "allOf": [
+    {
+      "$comment": "任何非 public_ready 的包都要列出阻塞缺口或给出说明（blocking_gaps 或 notes 至少其一）。",
+      "if": { "properties": { "readiness_level": { "enum": ["draft", "working_view", "research_package", "actionable_with_conditions"] } }, "required": ["readiness_level"] },
+      "then": { "anyOf": [{ "required": ["blocking_gaps"] }, { "required": ["notes"] }] }
+    },
+    {
+      "$comment": "canonical evidence log 必须在包里（support_artifacts 需含 evidence-log.csv）。",
+      "if": { "properties": { "evidence_log_status": { "const": "canonical_v1_2" } }, "required": ["evidence_log_status"] },
+      "then": { "properties": { "support_artifacts": { "items": { "type": "string" } } } }
+    }
+  ]
+}

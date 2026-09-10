@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "routing.schema.json",
+  "title": "Mira Routing Card",
+  "description": "路由卡片契约：正式研究工作开始前，先把『这是什么任务、多深、有什么风险、产出什么包』写成一张机器可读的卡片。条件规则分三类：深度门（standard/deep_dive 必须给出产出包）、决策门（decision_pressure 中高必须显式要求反证）、量化门（依赖计算必须有计算闸门）、追问门（light 以上必须给出追问问题）。",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string", "minLength": 1 },
+    "interaction_mode": { "$ref": "vocab.json#/interaction_mode" },
+    "primary_intent": { "type": "string", "minLength": 1 },
+    "task_mode": { "$ref": "vocab.json#/task_mode" },
+    "research_object": { "type": "string", "minLength": 1 },
+    "market_scope": { "type": "string", "minLength": 1 },
+    "time_boundary": { "type": "string", "minLength": 1 },
+    "depth_mode": { "$ref": "vocab.json#/depth_mode" },
+    "decision_pressure": { "$ref": "vocab.json#/decision_pressure" },
+    "framing_risk": { "$ref": "vocab.json#/framing_risk" },
+    "disconfirmation_required": { "$ref": "vocab.json#/disconfirmation_required" },
+    "quant_dependency": { "$ref": "vocab.json#/quant_dependency" },
+    "calculation_gate": { "$ref": "vocab.json#/calculation_gate" },
+    "primary_workflow": { "type": "string", "minLength": 1 },
+    "expected_output_package": { "type": "string", "minLength": 1 },
+    "readiness_level": { "$ref": "vocab.json#/readiness_level" },
+    "routing_basis": { "type": "string", "minLength": 1 },
+    "routing_mismatch_risk": { "type": "string", "minLength": 1 },
+    "followup_prompt_mode": { "$ref": "vocab.json#/followup_prompt_mode" },
+    "followup_questions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "followup_waiver_reason": { "type": "string", "minLength": 1 },
+    "notes": { "type": "string" }
+  },
+  "required": [
+    "schema_version",
+    "interaction_mode",
+    "primary_intent",
+    "task_mode",
+    "research_object",
+    "market_scope",
+    "time_boundary",
+    "depth_mode",
+    "primary_workflow",
+    "routing_basis",
+    "followup_prompt_mode"
+  ],
+  "allOf": [
+    {
+      "$comment": "深度门：standard 及以上必须给出产出包与就绪度，否则研究边界不清。",
+      "if": { "properties": { "depth_mode": { "enum": ["standard", "deep_dive"] } }, "required": ["depth_mode"] },
+      "then": { "required": ["expected_output_package", "readiness_level"] }
+    },
+    {
+      "$comment": "深度门：deep_dive 额外要求写明路由失配风险。",
+      "if": { "properties": { "depth_mode": { "const": "deep_dive" } }, "required": ["depth_mode"] },
+      "then": { "required": ["routing_mismatch_risk"] }
+    },
+    {
+      "$comment": "量化门：任何非 none 的计算依赖都必须给出 calculation_gate。",
+      "if": { "properties": { "quant_dependency": { "enum": ["low", "medium", "high"] } }, "required": ["quant_dependency"] },
+      "then": { "required": ["calculation_gate"] }
+    },
+    {
+      "$comment": "决策门：medium/high 决策压力必须显式要求反证（disconfirmation_required=yes）。",
+      "if": { "properties": { "decision_pressure": { "enum": ["medium", "high"] } }, "required": ["decision_pressure"] },
+      "then": { "required": ["disconfirmation_required"], "properties": { "disconfirmation_required": { "enum": ["yes"] } } }
+    },
+    {
+      "$comment": "追问门：light/standard/decision_grade 必须给出具体追问问题。",
+      "if": { "properties": { "followup_prompt_mode": { "enum": ["light", "standard", "decision_grade"] } }, "required": ["followup_prompt_mode"] },
+      "then": { "required": ["followup_questions"] }
+    },
+    {
+      "$comment": "追问门：显式 none 必须给出豁免理由。",
+      "if": { "properties": { "followup_prompt_mode": { "const": "none" } }, "required": ["followup_prompt_mode"] },
+      "then": { "required": ["followup_waiver_reason"] }
+    }
+  ]
+}

@@ -1,0 +1,169 @@
+{
+  "$comment": "统一受控词表（single source of truth）。所有 schema 的 enum 一律通过 $ref 引用本文件，不允许在各 schema 或代码中另行硬编码；mira validate 会用本文件做枚举校验。注：research_action 与 decision_type 共用同一 token 集（上游语义约束），如需 decision_type 字段请直接 $ref 本集合，不得复制拆分。",
+  "thesis_state": {
+    "enum": ["draft", "active", "watch", "upgrade_watch", "downgrade_watch", "narrative_watch", "stale", "retired"]
+  },
+  "judgment_confidence": {
+    "enum": ["high", "medium", "low"]
+  },
+  "confidence": {
+    "enum": ["high", "medium", "low"]
+  },
+  "horizon": {
+    "enum": ["trading", "fundamental", "industrial_trend"]
+  },
+  "price_in_status": {
+    "enum": ["price_in", "mostly_price_in", "partly_price_in", "not_price_in", "unknown"]
+  },
+  "claim_type": {
+    "enum": [
+      "fact",
+      "reported_metric",
+      "company_claim",
+      "guidance",
+      "target",
+      "commitment",
+      "forecast",
+      "assumption",
+      "interpretation",
+      "opinion",
+      "market_pricing",
+      "sentiment",
+      "rumor_signal",
+      "derived_calculation"
+    ]
+  },
+  "verification_status": {
+    "enum": ["verified", "disclosed", "claimed", "estimated", "modeled", "unverified", "contradicted"]
+  },
+  "authority_level": {
+    "enum": ["L1", "L2", "L3", "L4", "L5", "L6"]
+  },
+  "evidence_category": {
+    "enum": [
+      "verified_fact",
+      "reported_fact",
+      "company_statement",
+      "management_guidance",
+      "market_pricing",
+      "assumption",
+      "inference",
+      "estimate",
+      "weak_signal",
+      "stale",
+      "contradicted",
+      "unknown"
+    ]
+  },
+  "freshness_status": {
+    "enum": ["current", "acceptable_for_period", "preliminary", "stale", "unknown"]
+  },
+  "conflict_status": {
+    "enum": ["none", "unresolved", "contradicted", "not_checked"]
+  },
+  "treatment": {
+    "enum": ["use_normally", "attribute", "sensitize", "haircut", "source_gap", "monitor", "exclude", "open_item"]
+  },
+  "readiness_impact": {
+    "enum": [
+      "supports_durable_conclusion",
+      "supports_working_view",
+      "monitoring_only",
+      "blocks_actionability",
+      "blocks_publication",
+      "not_material"
+    ]
+  },
+  "source_language": {
+    "enum": ["zh-CN", "en", "ja", "ko", "not_applicable"]
+  },
+  "translation_basis": {
+    "enum": ["not_translated", "mira_translation", "provider_translation", "official_translation", "bilingual_source", "not_applicable"]
+  },
+  "refresh_status": {
+    "enum": ["fresh", "due_soon", "expired", "unknown"]
+  },
+  "trigger_kind": {
+    "enum": ["time", "filing", "event", "price", "macro", "custom"]
+  },
+  "trigger_status": {
+    "enum": ["pending", "fired", "cleared", "unknown"]
+  },
+  "interaction_mode": {
+    "enum": ["quick_answer", "routed_research", "decision_support", "routing_unclear"]
+  },
+  "depth_mode": {
+    "enum": ["quick_map", "standard", "deep_dive"]
+  },
+  "task_mode": {
+    "enum": [
+      "first_pass_research",
+      "monitoring_update",
+      "market_briefing",
+      "earnings_event",
+      "research_report_interpretation",
+      "methodology_review",
+      "thesis_system_update",
+      "position_review",
+      "portfolio_review",
+      "discovery_or_screening"
+    ]
+  },
+  "decision_pressure": {
+    "enum": ["none", "low", "medium", "high"]
+  },
+  "framing_risk": {
+    "enum": ["confirmation_seeking", "fomo", "anchoring", "loss_aversion", "position_defense", "none"]
+  },
+  "disconfirmation_required": {
+    "enum": ["yes", "no"]
+  },
+  "quant_dependency": {
+    "enum": ["none", "low", "medium", "high"]
+  },
+  "calculation_gate": {
+    "enum": ["not_required", "required", "waived"]
+  },
+  "followup_prompt_mode": {
+    "enum": ["none", "light", "standard", "decision_grade"]
+  },
+  "package_type": {
+    "enum": [
+      "research_package",
+      "earnings_package",
+      "briefing_package",
+      "interpretation_package",
+      "monitoring_package",
+      "methodology_package"
+    ]
+  },
+  "readiness_level": {
+    "enum": ["draft", "working_view", "research_package", "actionable_with_conditions", "public_ready"]
+  },
+  "evidence_log_status": {
+    "enum": ["canonical_v1_2", "legacy_v1_1", "legacy_v1", "none"]
+  },
+  "monitoring_status": {
+    "enum": ["open", "snoozed", "escalated", "closed"]
+  },
+  "cadence": {
+    "enum": ["daily", "weekly", "monthly", "quarterly", "event_driven"]
+  },
+  "research_action": {
+    "enum": [
+      "watch_only",
+      "upgrade_watch",
+      "downgrade_watch",
+      "add_to_research_queue",
+      "reduce_research_priority",
+      "hedge_context",
+      "event_setup",
+      "post_event_follow_through",
+      "valuation_reset_watch",
+      "risk_reduction_context",
+      "needs_refresh",
+      "no_action",
+      "retire_thesis"
+    ]
+  }
+}

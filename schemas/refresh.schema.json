@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "refresh.schema.json",
+  "title": "Mira Refresh Plan / Report",
+  "description": "刷新契约：把『什么时候这个结论不能再直接用』变成机器可读的触发条件与状态。stale_after 是时间边界；triggers 是事件边界；must_refresh_if 给人读的完整句子。mira refresh 依据本契约计算 fresh / due_soon / expired 并生成刷新报告。",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string", "minLength": 1 },
+    "thesis_id": { "type": "string", "minLength": 1 },
+    "as_of": { "type": "string", "format": "date" },
+    "stale_after": { "type": "string", "format": "date" },
+    "refresh_status": { "$ref": "vocab.json#/refresh_status" },
+    "triggers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "trigger_id": { "type": "string", "minLength": 1 },
+          "kind": { "$ref": "vocab.json#/trigger_kind" },
+          "condition": { "type": "string", "minLength": 1 },
+          "status": { "$ref": "vocab.json#/trigger_status" },
+          "last_checked": { "type": "string", "format": "date" },
+          "next_check": { "type": "string", "format": "date" },
+          "action_if_fired": { "type": "string", "minLength": 1 }
+        },
+        "required": ["trigger_id", "kind", "condition", "status"],
+        "allOf": [
+          {
+            "$comment": "已触发的 trigger 必须写明触发后的动作，否则刷新报告无法给出下一步。",
+            "if": { "properties": { "status": { "const": "fired" } }, "required": ["status"] },
+            "then": { "required": ["action_if_fired"] }
+          },
+          {
+            "$comment": "时间类 trigger 不接受空条件：必须给出 next_check 或 last_checked 至少一个时点。",
+            "if": { "properties": { "kind": { "const": "time" } }, "required": ["kind"] },
+            "then": { "anyOf": [{ "required": ["next_check"] }, { "required": ["last_checked"] }] }
+          }
+        ]
+      }
+    },
+    "must_refresh_if": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "notes": { "type": "string" }
+  },
+  "required": ["schema_version", "thesis_id", "as_of", "refresh_status", "triggers", "must_refresh_if"],
+  "allOf": [
+    {
+      "$comment": "expired 状态必须用 notes 记录过期原因与再刷新入口。",
+      "if": { "properties": { "refresh_status": { "const": "expired" } }, "required": ["refresh_status"] },
+      "then": { "required": ["notes", "stale_after"] }
+    },
+    {
+      "$comment": "due_soon 状态必须写明时间边界 stale_after，供排期。",
+      "if": { "properties": { "refresh_status": { "const": "due_soon" } }, "required": ["refresh_status"] },
+      "then": { "required": ["stale_after"] }
+    }
+  ]
+}
