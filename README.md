@@ -2,6 +2,7 @@
 
 <img src="docs/assets/hero.svg" width="100%" alt="mira-research">
 
+[![CI](https://github.com/lss680455-create/mira-research/actions/workflows/ci.yml/badge.svg)](https://github.com/lss680455-create/mira-research/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.9%2B-blue)
 ![License](https://img.shields.io/badge/license-Apache--2.0-green)
 ![Runtime deps](https://img.shields.io/badge/runtime%20deps-PyYAML%20only-brightgreen)
